@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>PX 카드마스터 PRO</title>
+  <title>PX 카드마스터 PRO v3</title>
   <style>
     :root {
       --navy: #0f172a;
       --navy-card: #111c33;
-      --navy-sub: #1b2845;
       --olive: #5b7234;
       --olive-dark: #495d28;
       --olive-light: #e9f0df;
@@ -94,7 +93,6 @@
       font-weight: 800;
       padding: 2px 6px;
       border-radius: 999px;
-      letter-spacing: 0.3px;
     }
 
     .brand-sub {
@@ -133,12 +131,8 @@
       padding: 14px;
     }
 
-    .tab-panel {
-      display: none;
-    }
-    .tab-panel.active {
-      display: block;
-    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
     .card {
       background: var(--card);
@@ -163,7 +157,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      gap: 8px;
     }
 
     .hero-label {
@@ -180,6 +175,7 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 800;
+      white-space: nowrap;
     }
 
     .hero-total-row {
@@ -187,7 +183,7 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .hero-sublabel {
@@ -203,6 +199,16 @@
       margin-top: 2px;
     }
 
+    .net-price-row {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .net-price-row strong {
+      color: #e2e8f0;
+    }
+
     .limit-calc-btn {
       background: rgba(245, 158, 11, 0.14);
       color: #fbbf24;
@@ -214,6 +220,20 @@
       cursor: pointer;
       white-space: nowrap;
     }
+
+    /* Tier-up Nudge Banner */
+    .nudge-banner {
+      display: none;
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      color: #fde68a;
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .nudge-banner.show { display: block; }
 
     .plan-box {
       background: rgba(255, 255, 255, 0.06);
@@ -254,41 +274,24 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 7px 0;
+      padding: 8px 0;
       border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
     }
 
-    .plan-step:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
+    .plan-step:last-child { border-bottom: none; padding-bottom: 0; }
 
-    .plan-card-name {
-      font-weight: 700;
-      color: #fff;
-      font-size: 13px;
-    }
+    .plan-card-name { font-weight: 700; color: #fff; font-size: 13px; }
+    .plan-card-detail { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+    .plan-card-right { text-align: right; }
+    .plan-pay-amt { font-weight: 800; color: #fff; font-size: 14px; }
+    .plan-save-amt { font-size: 11px; font-weight: 700; color: #34d399; }
 
-    .plan-card-detail {
-      font-size: 11px;
-      color: #94a3b8;
-      margin-top: 2px;
-    }
-
-    .plan-card-right {
-      text-align: right;
-    }
-
-    .plan-pay-amt {
-      font-weight: 800;
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .plan-save-amt {
-      font-size: 11px;
-      font-weight: 700;
-      color: #34d399;
+    .cashier-tip {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11.5px;
+      color: #93c5fd;
     }
 
     .complete-btn {
@@ -304,22 +307,15 @@
       transition: background 0.15s, transform 0.1s;
     }
 
-    .complete-btn:active {
-      transform: scale(0.99);
-      background: var(--olive-dark);
-    }
-
-    .complete-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    .complete-btn:active { transform: scale(0.99); background: var(--olive-dark); }
+    .complete-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     /* Section Headers */
     .sec-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       gap: 8px;
     }
 
@@ -340,6 +336,19 @@
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-outline-sm {
+      background: #f8fafc;
+      color: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
     }
 
     .btn-text-red {
@@ -358,6 +367,41 @@
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
+    }
+
+    /* Category Filter Tabs */
+    .cat-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .cat-tabs::-webkit-scrollbar { display: none; }
+
+    .cat-tab {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .cat-tab.active {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .cat-tab-add {
+      background: #fff;
+      color: var(--olive);
+      border: 1px dashed var(--olive);
     }
 
     /* Quick Add Chips */
@@ -388,22 +432,28 @@
       transform: scale(0.97);
     }
 
-    .chip-price {
-      color: var(--amber-dark);
-      font-weight: 800;
+    .chip-price { color: var(--amber-dark); font-weight: 800; }
+
+    .cat-badge {
+      font-size: 10px;
+      font-weight: 700;
+      background: #e2e8f0;
+      color: #475569;
+      padding: 2px 6px;
+      border-radius: 6px;
     }
 
-    /* Manual Add Form */
+    /* Inputs */
     .manual-row {
       display: flex;
       gap: 7px;
       margin-bottom: 14px;
     }
 
-    .input {
+    .input, .select {
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 10px 12px;
+      padding: 10px 11px;
       font-size: 13px;
       background: #f8fafc;
       color: var(--text);
@@ -411,19 +461,13 @@
       width: 100%;
     }
 
-    .input:focus {
+    .input:focus, .select:focus {
       border-color: var(--olive);
       background: #fff;
     }
 
-    .input-name {
-      flex: 1.5;
-    }
-
-    .input-price {
-      flex: 1;
-      text-align: right;
-    }
+    .input-name { flex: 1.5; }
+    .input-price { flex: 1; text-align: right; }
 
     .add-btn {
       background: var(--navy);
@@ -440,7 +484,7 @@
     /* Cart List */
     .empty-state {
       text-align: center;
-      padding: 24px 10px;
+      padding: 22px 10px;
       color: #94a3b8;
       font-size: 13px;
     }
@@ -454,16 +498,8 @@
       gap: 8px;
     }
 
-    .cart-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .cart-info {
-      min-width: 0;
-      flex: 1;
-    }
-
+    .cart-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .cart-info { min-width: 0; flex: 1; }
     .cart-name {
       font-size: 13.5px;
       font-weight: 700;
@@ -471,18 +507,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .cart-unit { font-size: 11.5px; color: var(--muted); }
 
-    .cart-unit {
-      font-size: 11.5px;
-      color: var(--muted);
-    }
-
-    .qty-ctrl {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
+    .qty-ctrl { display: flex; align-items: center; gap: 6px; }
     .qty-btn {
       width: 28px;
       height: 28px;
@@ -496,21 +523,8 @@
       align-items: center;
       justify-content: center;
     }
-
-    .qty-num {
-      min-width: 22px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .cart-sub {
-      font-size: 13px;
-      font-weight: 800;
-      min-width: 68px;
-      text-align: right;
-    }
-
+    .qty-num { min-width: 22px; text-align: center; font-size: 13px; font-weight: 800; }
+    .cart-sub { font-size: 13px; font-weight: 800; min-width: 68px; text-align: right; }
     .del-item-btn {
       background: none;
       border: none;
@@ -531,34 +545,16 @@
       margin-bottom: 8px;
       border: 1px solid var(--border);
     }
+    .compare-row.best { background: var(--olive-light); border-color: var(--olive); }
+    .compare-row:last-child { margin-bottom: 0; }
 
-    .compare-row.best {
-      background: var(--olive-light);
-      border-color: var(--olive);
-    }
-
-    .compare-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin-right: 6px;
-    }
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
     .dot-ibk { background: #1e293b; }
     .dot-shinhan { background: #2563eb; }
     .dot-hana { background: #10b981; }
 
     /* My Cards Tab */
-    .owned-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
+    .owned-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .owned-item {
       display: flex;
       align-items: center;
@@ -573,71 +569,20 @@
       cursor: pointer;
       user-select: none;
     }
+    .owned-item.checked { background: #eff6ff; border-color: var(--blue); color: var(--navy); }
+    .owned-item input { accent-color: var(--blue); width: 15px; height: 15px; }
 
-    .owned-item.checked {
-      background: #eff6ff;
-      border-color: var(--blue);
-      color: var(--navy);
-    }
-
-    .owned-item input {
-      accent-color: var(--blue);
-      width: 15px;
-      height: 15px;
-    }
-
-    .daily-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .daily-box {
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .daily-box.blue {
-      background: var(--blue-bg);
-      border-color: #bfdbfe;
-    }
-
-    .daily-box.green {
-      background: var(--green-bg);
-      border-color: #a7f3d0;
-    }
-
-    .daily-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 4px;
-      margin-bottom: 6px;
-    }
-
-    .daily-title {
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .status-badge {
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 6px;
-      white-space: nowrap;
-    }
-
+    .daily-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .daily-box { padding: 12px; border-radius: 12px; border: 1px solid var(--border); }
+    .daily-box.blue { background: var(--blue-bg); border-color: #bfdbfe; }
+    .daily-box.green { background: var(--green-bg); border-color: #a7f3d0; }
+    .daily-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 4px; margin-bottom: 6px; }
+    .daily-title { font-size: 12px; font-weight: 800; }
+    .status-badge { font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 6px; white-space: nowrap; }
     .status-ok-blue { background: #dbeafe; color: #1d4ed8; }
     .status-ok-green { background: #d1fae5; color: #047857; }
     .status-out { background: #fee2e2; color: #b91c1c; }
-
-    .daily-val {
-      font-size: 12px;
-      color: #334155;
-      margin-top: 2px;
-    }
+    .daily-val { font-size: 12px; color: #334155; margin-top: 2px; }
 
     .setting-row {
       display: flex;
@@ -647,24 +592,9 @@
       border-bottom: 1px solid #f1f5f9;
       gap: 10px;
     }
-
-    .setting-row:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .setting-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #334155;
-    }
-
-    .setting-input-wrap {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
+    .setting-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .setting-label { font-size: 13px; font-weight: 600; color: #334155; }
+    .setting-input-wrap { display: flex; align-items: center; gap: 6px; }
     .num-input {
       width: 96px;
       text-align: right;
@@ -688,14 +618,7 @@
       margin-bottom: 10px;
     }
 
-    /* Toggle Switch */
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 44px;
-      height: 24px;
-      flex-shrink: 0;
-    }
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider {
       position: absolute;
@@ -740,7 +663,6 @@
       margin-bottom: 14px;
       box-shadow: 0 6px 16px rgba(75, 96, 41, 0.25);
     }
-
     .month-pill {
       background: rgba(255, 255, 255, 0.2);
       padding: 3px 10px;
@@ -748,20 +670,8 @@
       font-size: 12px;
       font-weight: 700;
     }
-
-    .olive-divider {
-      height: 1px;
-      background: rgba(255, 255, 255, 0.2);
-      margin: 14px 0 10px;
-    }
-
-    .olive-bottom {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12.5px;
-      color: #ecfccb;
-      font-weight: 700;
-    }
+    .olive-divider { height: 1px; background: rgba(255, 255, 255, 0.2); margin: 14px 0 10px; }
+    .olive-bottom { display: flex; justify-content: space-between; font-size: 12.5px; color: #ecfccb; font-weight: 700; }
 
     .receipt-item {
       border: 1px solid var(--border);
@@ -770,22 +680,9 @@
       margin-bottom: 10px;
       background: #f8fafc;
     }
-
     .receipt-item:last-child { margin-bottom: 0; }
-
-    .receipt-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .receipt-date {
-      font-size: 11.5px;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
+    .receipt-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .receipt-date { font-size: 11.5px; color: var(--muted); font-weight: 700; }
     .receipt-save {
       font-size: 12px;
       font-weight: 800;
@@ -794,28 +691,10 @@
       padding: 2px 8px;
       border-radius: 6px;
     }
+    .receipt-desc { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .receipt-meta { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
 
-    .receipt-desc {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .receipt-meta {
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .backup-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
+    .backup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
     .btn-backup-dark {
       background: var(--navy);
       color: #fff;
@@ -826,7 +705,6 @@
       font-weight: 800;
       cursor: pointer;
     }
-
     .btn-backup-light {
       background: #e2e8f0;
       color: var(--text);
@@ -866,15 +744,8 @@
       cursor: pointer;
       padding: 4px 18px;
     }
-
-    .nav-btn.active {
-      color: var(--olive);
-    }
-
-    .nav-icon {
-      font-size: 19px;
-      line-height: 1;
-    }
+    .nav-btn.active { color: var(--olive); }
+    .nav-icon { font-size: 19px; line-height: 1; }
 
     /* Modal */
     .modal-backdrop {
@@ -886,16 +757,13 @@
       align-items: flex-end;
       justify-content: center;
     }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
+    .modal-backdrop.open { display: flex; }
 
     .modal-sheet {
       background: #fff;
       width: 100%;
       max-width: 540px;
-      max-height: 82vh;
+      max-height: 85vh;
       border-radius: 20px 20px 0 0;
       padding: 18px;
       display: flex;
@@ -920,7 +788,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 6px;
+      padding: 10px 4px;
       border-bottom: 1px solid #f1f5f9;
       gap: 8px;
     }
@@ -933,9 +801,34 @@
       color: #cbd5e1;
       padding: 2px 4px;
     }
+    .star-btn.fav { color: #f59e0b; }
 
-    .star-btn.fav {
-      color: #f59e0b;
+    .cat-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .cat-manage-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .cat-manage-del {
+      background: none;
+      border: none;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
     }
 
     .toast {
@@ -955,10 +848,7 @@
       transition: opacity 0.25s;
       white-space: nowrap;
     }
-
-    .toast.show {
-      opacity: 1;
-    }
+    .toast.show { opacity: 1; }
   </style>
 </head>
 <body>
@@ -994,9 +884,13 @@
           <div>
             <div class="hero-sublabel">장바구니 총액</div>
             <div id="heroTotalAmount" class="hero-amount">0원</div>
+            <div id="netPriceRow" class="net-price-row">실제 체감가: <strong>0원</strong></div>
           </div>
-          <button id="openLimitCalcBtn" class="limit-calc-btn">🎯 한도 털어먹기 (영끌 계산)</button>
+          <button id="openLimitCalcBtn" class="limit-calc-btn">🎯 영끌 계산</button>
         </div>
+
+        <!-- Tier-up Nudge -->
+        <div id="nudgeBanner" class="nudge-banner"></div>
 
         <div class="plan-box">
           <div class="plan-header">
@@ -1013,12 +907,16 @@
         </button>
       </div>
 
-      <!-- Quick Add Favorites -->
+      <!-- Quick Add Favorites with Category Tabs -->
       <div class="card">
         <div class="sec-head">
-          <div class="sec-title">⭐ 즐겨찾기 퀵 담기 (★)</div>
-          <button id="openCatalogBtn" class="btn-dark-sm">🗂️ 전체 품목 카탈로그</button>
+          <div class="sec-title">⭐ 항목별 퀵 담기</div>
+          <div style="display:flex; gap:6px;">
+            <button id="openCategoryModalBtn" class="btn-outline-sm">🏷️ 항목 관리</button>
+            <button id="openCatalogBtn" class="btn-dark-sm">🗂️ 전체 카탈로그</button>
+          </div>
         </div>
+        <div id="quickCatTabs" class="cat-tabs"></div>
         <div id="quickChips" class="chips-wrap"></div>
       </div>
 
@@ -1195,7 +1093,7 @@
           <div class="sec-title">💾 데이터 백업 및 복원 (JSON)</div>
         </div>
         <p style="font-size:12px; color:var(--muted);">
-          기록과 나만의 퀵 품목을 텍스트로 보관하거나 새 스마트폰으로 옮길 수 있습니다.
+          기록, 항목, 나만의 품목을 텍스트로 보관하거나 새 스마트폰으로 옮길 수 있습니다.
         </p>
         <div class="backup-grid">
           <button id="exportJsonBtn" class="btn-backup-dark">📥 내보내기 (복사)</button>
@@ -1221,6 +1119,26 @@
     </button>
   </nav>
 
+  <!-- Category Manage Modal -->
+  <div id="categoryModal" class="modal-backdrop">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <div class="sec-title">🏷️ 물품 항목(카테고리) 관리</div>
+        <button class="btn-text-muted" data-close-modal="categoryModal" style="font-size:18px;">✕</button>
+      </div>
+      <div style="display:flex; gap:6px; margin-bottom:14px;">
+        <input id="newCategoryInput" class="input" type="text" placeholder="새 항목 이름 (예: 간식, 선물, 운동)" />
+        <button id="addCategoryBtn" class="add-btn">+ 추가</button>
+      </div>
+      <div class="modal-body">
+        <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+          등록된 항목 (삭제 시 해당 품목은 '기타'로 이동됩니다)
+        </div>
+        <div id="categoryManageList" class="cat-pill-row"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Catalog Modal -->
   <div id="catalogModal" class="modal-backdrop">
     <div class="modal-sheet">
@@ -1228,15 +1146,48 @@
         <div class="sec-title">🗂️ 전체 품목 카탈로그</div>
         <button class="btn-text-muted" data-close-modal="catalogModal" style="font-size:18px;">✕</button>
       </div>
-      <div style="margin-bottom:10px;">
-        <input id="catalogSearch" class="input" type="text" placeholder="품목 검색..." />
+      <div style="display:flex; gap:6px; margin-bottom:8px;">
+        <input id="catalogSearch" class="input" type="text" placeholder="품목 검색..." style="flex:1.4;" />
+        <select id="catalogFilterCat" class="select" style="flex:1;"></select>
       </div>
-      <div style="display:flex; gap:6px; margin-bottom:12px;">
-        <input id="newCatName" class="input" type="text" placeholder="새 품목 추가" style="flex:1.5;" />
-        <input id="newCatPrice" class="input" type="number" inputmode="numeric" placeholder="가격" style="flex:1; text-align:right;" />
-        <button id="addCatalogItemBtn" class="add-btn">추가</button>
+      <div style="background:#f8fafc; border:1px solid var(--border); border-radius:12px; padding:10px; margin-bottom:10px;">
+        <div style="font-size:11.5px; font-weight:800; color:var(--muted); margin-bottom:6px;">+ 새 품목 등록</div>
+        <div style="display:flex; gap:6px; margin-bottom:6px;">
+          <select id="newCatCategory" class="select" style="flex:1;"></select>
+          <input id="newCatName" class="input" type="text" placeholder="품목명" style="flex:1.5;" />
+        </div>
+        <div style="display:flex; gap:6px;">
+          <input id="newCatPrice" class="input" type="number" inputmode="numeric" placeholder="단가(원)" style="flex:1; text-align:right;" />
+          <button id="addCatalogItemBtn" class="add-btn">등록하기</button>
+        </div>
       </div>
       <div id="catalogList" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Edit Item Modal -->
+  <div id="editItemModal" class="modal-backdrop">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <div class="sec-title">✏️ 품목 정보 수정</div>
+        <button class="btn-text-muted" data-close-modal="editItemModal" style="font-size:18px;">✕</button>
+      </div>
+      <input type="hidden" id="editItemId" />
+      <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;">
+        <div>
+          <label style="font-size:12px; font-weight:700; color:var(--muted);">항목(카테고리)</label>
+          <select id="editItemCat" class="select" style="margin-top:4px;"></select>
+        </div>
+        <div>
+          <label style="font-size:12px; font-weight:700; color:var(--muted);">품목명</label>
+          <input id="editItemName" class="input" type="text" style="margin-top:4px;" />
+        </div>
+        <div>
+          <label style="font-size:12px; font-weight:700; color:var(--muted);">단가(원)</label>
+          <input id="editItemPrice" class="input" type="number" inputmode="numeric" style="margin-top:4px; text-align:right;" />
+        </div>
+      </div>
+      <button id="saveEditItemBtn" class="complete-btn">수정 완료</button>
     </div>
   </div>
 
@@ -1266,40 +1217,41 @@
   <div id="toast" class="toast"></div>
 
   <script>
-    const STORAGE_KEY = "px_cardmaster_pro_v2";
+    const STORAGE_KEY = "px_cardmaster_pro_v3";
+
+    const DEFAULT_CATEGORIES = ["영양제", "화장품", "식품", "방한/생활", "기타"];
 
     const DEFAULT_CATALOG = [
-      // 사용자 추가 요청 품목 (14종 - 기본 즐겨찾기 등록)
-      { id: "u1", emoji: "💊", name: "마그네슘", price: 13200, fav: true },
-      { id: "u2", emoji: "🧴", name: "닥터지 수분크림", price: 6930, fav: true },
-      { id: "u3", emoji: "🍊", name: "비타민", price: 27400, fav: true },
-      { id: "u4", emoji: "🌿", name: "아누아80", price: 7270, fav: true },
-      { id: "u5", emoji: "☁️", name: "화장솜", price: 2710, fav: true },
-      { id: "u6", emoji: "🎭", name: "팩", price: 1030, fav: true },
-      { id: "u7", emoji: "🦠", name: "유산균", price: 7160, fav: true },
-      { id: "u8", emoji: "🐟", name: "오메가3", price: 6960, fav: true },
-      { id: "u9", emoji: "🫧", name: "클렌징폼 아누아", price: 6360, fav: true },
-      { id: "u10", emoji: "🪨", name: "참숯", price: 1450, fav: true },
-      { id: "u11", emoji: "🥫", name: "참치", price: 2320, fav: true },
-      { id: "u12", emoji: "🍚", name: "햇반", price: 1130, fav: true },
-      { id: "u13", emoji: "🧣", name: "스위스 넥워머", price: 8170, fav: true },
-      { id: "u14", emoji: "🧤", name: "벡셀 기모 장갑", price: 1740, fav: true },
-      // 기존 인기 PX 품목
-      { id: "d1", emoji: "🍗", name: "슈넬치킨", price: 4800, fav: false },
-      { id: "d2", emoji: "🥟", name: "샤오롱바오 만두", price: 3200, fav: false },
-      { id: "d3", emoji: "🧴", name: "닥터지 레드 블레미쉬 크림", price: 7800, fav: false },
-      { id: "d4", emoji: "🐌", name: "닥터지 블랙 스네일 크림", price: 6900, fav: false },
-      { id: "d5", emoji: "💪", name: "마이프로틴 쉐이크 1kg", price: 29000, fav: false },
-      { id: "d6", emoji: "🥤", name: "몬스터 에너지", price: 1200, fav: false },
-      { id: "d7", emoji: "🎁", name: "정관장 홍삼정 에브리타임", price: 42000, fav: false }
+      // 영양제
+      { id: "u1", cat: "영양제", emoji: "💊", name: "마그네슘", price: 13200, fav: true },
+      { id: "u3", cat: "영양제", emoji: "🍊", name: "비타민", price: 27400, fav: true },
+      { id: "u7", cat: "영양제", emoji: "🦠", name: "유산균", price: 7160, fav: true },
+      { id: "u8", cat: "영양제", emoji: "🐟", name: "오메가3", price: 6960, fav: true },
+      { id: "d5", cat: "영양제", emoji: "💪", name: "마이프로틴 쉐이크 1kg", price: 29000, fav: false },
+      { id: "d7", cat: "영양제", emoji: "🎁", name: "정관장 홍삼정 에브리타임", price: 42000, fav: false },
+      // 화장품
+      { id: "u2", cat: "화장품", emoji: "🧴", name: "닥터지 수분크림", price: 6930, fav: true },
+      { id: "u4", cat: "화장품", emoji: "🌿", name: "아누아80", price: 7270, fav: true },
+      { id: "u5", cat: "화장품", emoji: "☁️", name: "화장솜", price: 2710, fav: true },
+      { id: "u6", cat: "화장품", emoji: "🎭", name: "팩", price: 1030, fav: true },
+      { id: "u9", cat: "화장품", emoji: "🫧", name: "클렌징폼 아누아", price: 6360, fav: true },
+      { id: "d3", cat: "화장품", emoji: "🧴", name: "닥터지 레드 블레미쉬 크림", price: 7800, fav: false },
+      { id: "d4", cat: "화장품", emoji: "🐌", name: "닥터지 블랙 스네일 크림", price: 6900, fav: false },
+      // 식품
+      { id: "u11", cat: "식품", emoji: "🥫", name: "참치", price: 2320, fav: true },
+      { id: "u12", cat: "식품", emoji: "🍚", name: "햇반", price: 1130, fav: true },
+      { id: "d1", cat: "식품", emoji: "🍗", name: "슈넬치킨", price: 4800, fav: false },
+      { id: "d2", cat: "식품", emoji: "🥟", name: "샤오롱바오 만두", price: 3200, fav: false },
+      { id: "d6", cat: "식품", emoji: "🥤", name: "몬스터 에너지", price: 1200, fav: false },
+      // 방한/생활
+      { id: "u10", cat: "방한/생활", emoji: "🪨", name: "참숯", price: 1450, fav: true },
+      { id: "u13", cat: "방한/생활", emoji: "🧣", name: "스위스 넥워머", price: 8170, fav: true },
+      { id: "u14", cat: "방한/생활", emoji: "🧤", name: "벡셀 기모 장갑", price: 1740, fav: true }
     ];
 
     function getTodayStr() {
       const d = new Date();
-      const y = d.getFullYear();
-      const m = String(d.getMonth() + 1).padStart(2, "0");
-      const day = String(d.getDate()).padStart(2, "0");
-      return `${y}-${m}-${day}`;
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
     }
 
     function getMonthStr() {
@@ -1333,6 +1285,8 @@
         paydayMode: new Date().getDate() === 10,
         lastDate: getTodayStr(),
         lastMonth: getMonthStr(),
+        selectedQuickCat: "전체",
+        categories: [...DEFAULT_CATEGORIES],
         owned: { ibk: true, shinhan: true, hana: true },
         limits: {
           ibkSalary: true,
@@ -1364,9 +1318,12 @@
         const merged = {
           ...def,
           ...parsed,
+          categories: Array.isArray(parsed.categories) && parsed.categories.length ? parsed.categories : def.categories,
           owned: { ...def.owned, ...(parsed.owned || {}) },
           limits: { ...def.limits, ...(parsed.limits || {}) },
-          catalog: Array.isArray(parsed.catalog) && parsed.catalog.length ? parsed.catalog : def.catalog,
+          catalog: Array.isArray(parsed.catalog) && parsed.catalog.length
+            ? parsed.catalog.map(i => ({ cat: "기타", ...i }))
+            : def.catalog,
           cart: Array.isArray(parsed.cart) ? parsed.cart : [],
           receipts: Array.isArray(parsed.receipts) ? parsed.receipts : [],
           archives: Array.isArray(parsed.archives) ? parsed.archives : []
@@ -1424,35 +1381,24 @@
       if (amount <= 0) return { saved: 0, rate: 0, note: "" };
       if (amount < 30000) {
         const maxCount = limits.ibkSalary ? 6 : 3;
-        if (limits.ibkUnderCount >= maxCount) {
-          return { saved: 0, rate: 0, note: "3만 미만 월 횟수 소진" };
-        }
-        const saved = Math.floor(amount * 0.15);
-        return { saved, rate: 15, note: `3만 미만 15% (${limits.ibkUnderCount + 1}/${maxCount}회)` };
+        if (limits.ibkUnderCount >= maxCount) return { saved: 0, rate: 0, note: "3만 미만 월 횟수 소진" };
+        return {
+          saved: Math.floor(amount * 0.15),
+          rate: 15,
+          note: `3만 미만 15% (${limits.ibkUnderCount + 1}/${maxCount}회)`
+        };
       }
+      if (limits.ibkRemain <= 0) return { saved: 0, rate: 0, note: "3만 이상 월 한도 소진" };
 
-      if (limits.ibkRemain <= 0) {
-        return { saved: 0, rate: 0, note: "3만 이상 월 한도 소진" };
-      }
-
-      let rate = 10;
-      let tierText = "3만 이상 10%";
-      let useSpecial = false;
-
+      let rate = 10, tierText = "3만 이상 10%", useSpecial = false;
       if (amount >= 200000 && limits.ibkSpecialCount > 0) {
-        rate = 30;
-        tierText = "20만 이상 특별할인 30%";
-        useSpecial = true;
+        rate = 30; tierText = "20만 이상 특별할인 30%"; useSpecial = true;
       } else if (amount >= 100000) {
-        rate = 20;
-        tierText = "10만 이상 20%";
+        rate = 20; tierText = "10만 이상 20%";
       } else if (amount >= 70000) {
-        rate = 15;
-        tierText = "7만 이상 15%";
+        rate = 15; tierText = "7만 이상 15%";
       }
-
-      const raw = Math.floor(amount * (rate / 100));
-      const saved = Math.min(raw, limits.ibkRemain);
+      const saved = Math.min(Math.floor(amount * (rate / 100)), limits.ibkRemain);
       return { saved, rate, note: tierText, useSpecial };
     }
 
@@ -1461,17 +1407,17 @@
       if (limits.shinhanRemain <= 0) return { saved: 0, rate: 0, note: "월 통합 한도 소진" };
 
       const rate = paydayMode ? 50 : 20;
-      let raw = Math.floor(amount * (rate / 100));
-
+      const raw = Math.floor(amount * (rate / 100));
       if (amount < 30000) {
         const dailyLeft = Math.max(0, 1000 - limits.shinhanDailyUnderUsed);
         if (dailyLeft <= 0) return { saved: 0, rate: 0, note: "3만 미만 일 한도(1,000원) 소진" };
-        const saved = Math.min(raw, dailyLeft, limits.shinhanRemain);
-        return { saved, rate, note: `3만 미만 ${rate}% (일 한도 1천원)` };
+        return { saved: Math.min(raw, dailyLeft, limits.shinhanRemain), rate, note: `3만 미만 ${rate}% (일 한도 1천원)` };
       }
-
-      const saved = Math.min(raw, limits.shinhanRemain);
-      return { saved, rate, note: paydayMode ? "급여일(10일) 50% 할인" : "3만 이상 20% 할인" };
+      return {
+        saved: Math.min(raw, limits.shinhanRemain),
+        rate,
+        note: paydayMode ? "급여일(10일) 50% 할인" : "3만 이상 20% 할인"
+      };
     }
 
     function calcHana(amount, limits) {
@@ -1481,16 +1427,19 @@
       if (amount < 30000) {
         const dailyLeft = Math.max(0, 5000 - limits.hanaDailyUnderUsed);
         if (dailyLeft <= 0) return { saved: 0, rate: 0, note: "3만 미만 일 한도(5천원) 소진" };
-        const raw = Math.floor(amount * 0.30);
-        const saved = Math.min(raw, dailyLeft, limits.hanaRemain);
-        return { saved, rate: 30, note: "3만 미만 30% (일 한도 5천원)" };
+        return {
+          saved: Math.min(Math.floor(amount * 0.30), dailyLeft, limits.hanaRemain),
+          rate: 30,
+          note: "3만 미만 30% (일 한도 5천원)"
+        };
       }
-
       const dailyLeft = Math.max(0, 20000 - limits.hanaDailyOverUsed);
       if (dailyLeft <= 0) return { saved: 0, rate: 0, note: "3만 이상 일 한도(2만원) 소진" };
-      const raw = Math.floor(amount * 0.20);
-      const saved = Math.min(raw, dailyLeft, limits.hanaRemain);
-      return { saved, rate: 20, note: "3만 이상 20% (일 한도 2만원)" };
+      return {
+        saved: Math.min(Math.floor(amount * 0.20), dailyLeft, limits.hanaRemain),
+        rate: 20,
+        note: "3만 이상 20% (일 한도 2만원)"
+      };
     }
 
     function calcCard(cardKey, amount) {
@@ -1510,58 +1459,39 @@
       const ownedCards = Object.keys(state.owned).filter(k => state.owned[k]);
       if (total <= 0 || ownedCards.length === 0) return null;
 
-      let best = {
-        type: "single",
-        totalSaved: -1,
-        steps: []
-      };
+      let best = { type: "single", totalSaved: -1, steps: [] };
 
-      // 1) Single Card Evaluation
       for (const c of ownedCards) {
         const res = calcCard(c, total);
         if (res.saved > best.totalSaved) {
-          best = {
-            type: "single",
-            totalSaved: res.saved,
-            steps: [{ card: c, amount: total, ...res }]
-          };
+          best = { type: "single", totalSaved: res.saved, steps: [{ card: c, amount: total, ...res }] };
         }
       }
 
-      // 2) Smart 2-Card Split Evaluation
       if (ownedCards.length >= 2 && total >= 20000) {
         const candidateSplits = new Set([10000, 16667, 16670, 29900, 30000, 70000, 100000, 113330, 200000]);
-        // Dynamic threshold splits based on remaining limits
         const hanaUnderCap = Math.min(29900, Math.floor((5000 - state.limits.hanaDailyUnderUsed) / 0.3));
         const hanaOverCap = Math.floor(Math.min(20000 - state.limits.hanaDailyOverUsed, state.limits.hanaRemain) / 0.2);
-        const shinhanRate = state.paydayMode ? 0.5 : 0.2;
-        const shinhanCap = Math.floor(state.limits.shinhanRemain / shinhanRate);
+        const shinhanCap = Math.floor(state.limits.shinhanRemain / (state.paydayMode ? 0.5 : 0.2));
         const ibkCap20 = Math.floor(state.limits.ibkRemain / 0.2);
 
         [hanaUnderCap, hanaOverCap, shinhanCap, ibkCap20, total - hanaUnderCap, total - 30000, total - 100000].forEach(v => {
           if (v > 0 && v < total) candidateSplits.add(v);
         });
-
-        // Also sample every 5,000 KRW
-        for (let a = 5000; a < total; a += 5000) {
-          candidateSplits.add(a);
-        }
+        for (let a = 5000; a < total; a += 5000) candidateSplits.add(a);
 
         for (let i = 0; i < ownedCards.length; i++) {
           for (let j = i + 1; j < ownedCards.length; j++) {
-            const c1 = ownedCards[i];
-            const c2 = ownedCards[j];
+            const c1 = ownedCards[i], c2 = ownedCards[j];
             for (const a1 of candidateSplits) {
               if (a1 <= 0 || a1 >= total) continue;
               const a2 = total - a1;
               const r1 = calcCard(c1, a1);
               const r2 = calcCard(c2, a2);
-              const sumSaved = r1.saved + r2.saved;
-              // Prefer split only if strictly better by at least 100 won
-              if (sumSaved > best.totalSaved + 99) {
+              if (r1.saved + r2.saved > best.totalSaved + 99) {
                 best = {
                   type: "split",
-                  totalSaved: sumSaved,
+                  totalSaved: r1.saved + r2.saved,
                   steps: [
                     { card: c1, amount: a1, ...r1 },
                     { card: c2, amount: a2, ...r2 }
@@ -1572,14 +1502,30 @@
           }
         }
       }
-
       return best;
+    }
+
+    function getTierNudge(total) {
+      if (total <= 0) return "";
+      if (total >= 25000 && total < 30000) {
+        return `💡 ${fmt(30000 - total)}만 더 담으면 3만 원 구간(신한/하나/IBK 고액 한도) 진입!`;
+      }
+      if (state.owned.ibk && total >= 63000 && total < 70000) {
+        return `💡 ${fmt(70000 - total)}만 더 담으면 IBK 7만 원 구간(15%) 적용!`;
+      }
+      if (state.owned.ibk && total >= 90000 && total < 100000) {
+        return `💡 ${fmt(100000 - total)}만 더 담으면 IBK 10만 원 구간(20%) 적용!`;
+      }
+      if (state.owned.ibk && state.limits.ibkSpecialCount > 0 && total >= 185000 && total < 200000) {
+        return `💡 ${fmt(200000 - total)}만 더 담으면 IBK 20만 원 특별할인(30%) 가능!`;
+      }
+      return "";
     }
 
     /* ================= RENDERING ================= */
     function renderAll() {
       renderHeader();
-      renderQuickChips();
+      renderQuickArea();
       renderCartAndPlan();
       renderCardsTab();
       renderHistoryTab();
@@ -1591,13 +1537,27 @@
       btn.classList.toggle("active", state.paydayMode);
     }
 
-    function renderQuickChips() {
+    function renderQuickArea() {
+      const tabsEl = document.getElementById("quickCatTabs");
+      const allCats = ["전체", ...state.categories];
+      if (!allCats.includes(state.selectedQuickCat)) state.selectedQuickCat = "전체";
+
+      tabsEl.innerHTML = allCats.map(c => `
+        <button class="cat-tab ${state.selectedQuickCat === c ? "active" : ""}" data-select-quick-cat="${escapeHtml(c)}">
+          ${escapeHtml(c)}
+        </button>
+      `).join("") + `<button class="cat-tab cat-tab-add" id="inlineAddCatBtn">+ 항목 추가</button>`;
+
       const container = document.getElementById("quickChips");
-      const favs = state.catalog.filter(item => item.fav);
+      const favs = state.catalog.filter(item =>
+        item.fav && (state.selectedQuickCat === "전체" || item.cat === state.selectedQuickCat)
+      );
+
       if (favs.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="width:100%; padding:12px;">즐겨찾기 품목이 없습니다. 전체 품목 카탈로그에서 ★을 눌러 추가하세요.</div>`;
+        container.innerHTML = `<div class="empty-state" style="width:100%; padding:14px;">이 항목에 즐겨찾기 품목이 없습니다.<br/>[전체 카탈로그]에서 품목을 추가하거나 ★을 눌러주세요.</div>`;
         return;
       }
+
       container.innerHTML = favs.map(item => `
         <button class="chip" data-quick-add="${item.id}">
           <span>${item.emoji || "📦"} ${escapeHtml(item.name)}</span>
@@ -1615,7 +1575,7 @@
 
       const cartEl = document.getElementById("cartList");
       if (state.cart.length === 0) {
-        cartEl.innerHTML = `<div class="empty-state">장바구니가 비어 있습니다.<br/>상단 퀵 버튼이나 카탈로그에서 담아주세요.</div>`;
+        cartEl.innerHTML = `<div class="empty-state">장바구니가 비어 있습니다.<br/>상단 항목별 퀵 버튼이나 카탈로그에서 담아주세요.</div>`;
       } else {
         cartEl.innerHTML = state.cart.map((item, idx) => `
           <div class="cart-item">
@@ -1634,30 +1594,39 @@
         `).join("");
       }
 
-      // Optimal Plan
       const ownedCards = Object.keys(state.owned).filter(k => state.owned[k]);
       const planBody = document.getElementById("planBody");
       const planBadge = document.getElementById("planBadge");
       const pill = document.getElementById("heroCashbackPill");
+      const netRow = document.getElementById("netPriceRow");
       const completeBtn = document.getElementById("completePayBtn");
+      const nudgeEl = document.getElementById("nudgeBanner");
+
+      const nudgeMsg = getTierNudge(totalAmount);
+      nudgeEl.textContent = nudgeMsg;
+      nudgeEl.classList.toggle("show", Boolean(nudgeMsg));
 
       currentPlan = findOptimalPlan(totalAmount);
 
       if (totalAmount === 0) {
         pill.textContent = "예상 환급금 0원";
+        netRow.innerHTML = `실제 체감가: <strong>0원</strong>`;
         planBadge.textContent = "대기 중";
         planBody.innerHTML = "장바구니에 물품을 담으시면 자동 추천됩니다.";
         completeBtn.disabled = true;
       } else if (ownedCards.length === 0) {
         pill.textContent = "예상 환급금 0원";
+        netRow.innerHTML = `실제 체감가: <strong>${fmt(totalAmount)}</strong>`;
         planBadge.textContent = "카드 미선택";
         planBody.innerHTML = "선택된 보유 카드가 없습니다. [내 카드] 탭에서 카드를 선택하세요.";
         completeBtn.disabled = true;
       } else {
-        const effRate = totalAmount > 0 ? ((currentPlan.totalSaved / totalAmount) * 100).toFixed(1) : "0.0";
+        const effRate = ((currentPlan.totalSaved / totalAmount) * 100).toFixed(1);
         pill.textContent = `예상 환급금 ${fmt(currentPlan.totalSaved)} (${effRate}%)`;
+        netRow.innerHTML = `실제 체감가: <strong>${fmt(totalAmount - currentPlan.totalSaved)}</strong>`;
         planBadge.textContent = currentPlan.type === "split" ? "분할 결제 최적" : "단독 결제 최적";
-        planBody.innerHTML = currentPlan.steps.map((st, idx) => `
+
+        let html = currentPlan.steps.map((st, idx) => `
           <div class="plan-step">
             <div>
               <div class="plan-card-name">${currentPlan.type === "split" ? `${idx + 1}차 ` : ""}${CARD_META[st.card].short}</div>
@@ -1669,10 +1638,15 @@
             </div>
           </div>
         `).join("");
+
+        if (currentPlan.type === "split") {
+          const s1 = currentPlan.steps[0], s2 = currentPlan.steps[1];
+          html += `<div class="cashier-tip">🗣️ 계산대 멘트: "${CARD_META[s1.card].short}로 ${fmt(s1.amount)} 먼저 결제하고, 나머지는 ${CARD_META[s2.card].short}로 결제할게요."</div>`;
+        }
+        planBody.innerHTML = html;
         completeBtn.disabled = false;
       }
 
-      // Single Card Comparison
       const compareEl = document.getElementById("compareList");
       if (ownedCards.length === 0) {
         compareEl.innerHTML = `<div class="empty-state" style="padding:12px;">선택된 보유 카드가 없습니다. [내 카드] 탭에서 추가하세요.</div>`;
@@ -1681,7 +1655,6 @@
       } else {
         const results = ownedCards.map(c => ({ card: c, ...calcCard(c, totalAmount) }))
           .sort((a, b) => b.saved - a.saved);
-        const topSaved = results[0].saved;
         compareEl.innerHTML = results.map((r, idx) => `
           <div class="compare-row ${idx === 0 && r.saved > 0 ? "best" : ""}">
             <div>
@@ -1691,12 +1664,8 @@
               <div style="font-size:11.5px; color:var(--muted); margin-top:2px;">${r.note}</div>
             </div>
             <div style="text-align:right;">
-              <div style="font-size:14px; font-weight:900; color:${r.saved > 0 ? "var(--olive)" : "var(--muted)"};">
-                ${fmt(r.saved)}
-              </div>
-              <div style="font-size:11px; color:var(--muted);">
-                ${totalAmount > 0 ? ((r.saved / totalAmount) * 100).toFixed(1) : 0}%
-              </div>
+              <div style="font-size:14px; font-weight:900; color:${r.saved > 0 ? "var(--olive)" : "var(--muted)"};">${fmt(r.saved)}</div>
+              <div style="font-size:11px; color:var(--muted);">${((r.saved / totalAmount) * 100).toFixed(1)}%</div>
             </div>
           </div>
         `).join("");
@@ -1705,7 +1674,6 @@
 
     function renderCardsTab() {
       document.getElementById("todayDateLabel").textContent = state.lastDate;
-
       ["ibk", "shinhan", "hana"].forEach(k => {
         const cb = document.getElementById(`own-${k}`);
         const lbl = document.getElementById(`label-own-${k}`);
@@ -1713,7 +1681,6 @@
         lbl.classList.toggle("checked", state.owned[k]);
       });
 
-      // Daily status
       const sUsed = state.limits.shinhanDailyUnderUsed;
       document.getElementById("shinhanDailyUsed").textContent = fmt(sUsed);
       const sBadge = document.getElementById("shinhanDailyStatus");
@@ -1729,7 +1696,6 @@
       hBadge.textContent = hOut ? "한도 소진" : "사용 가능";
       hBadge.className = "status-badge " + (hOut ? "status-out" : "status-ok-green");
 
-      // Inputs
       document.getElementById("ibkSalary").checked = state.limits.ibkSalary;
       document.getElementById("ibkUnderMaxLabel").textContent = state.limits.ibkSalary ? "6" : "3";
       document.getElementById("ibkUnderCount").value = state.limits.ibkUnderCount;
@@ -1741,7 +1707,6 @@
 
     function renderHistoryTab() {
       document.getElementById("currentMonthLabel").textContent = formatMonthKr(state.lastMonth);
-
       const monthSaved = state.receipts.reduce((s, r) => s + r.saved, 0);
       const archiveSaved = state.archives.reduce((s, a) => s + a.totalSaved, 0);
       document.getElementById("monthlyCashbackTotal").textContent = fmt(monthSaved);
@@ -1783,27 +1748,60 @@
       }
     }
 
+    function populateCategorySelects() {
+      const filterSel = document.getElementById("catalogFilterCat");
+      const prevFilter = filterSel.value || "전체";
+      filterSel.innerHTML = `<option value="전체">전체 항목</option>` +
+        state.categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+      filterSel.value = ["전체", ...state.categories].includes(prevFilter) ? prevFilter : "전체";
+
+      const optionsHtml = state.categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+      document.getElementById("newCatCategory").innerHTML = optionsHtml;
+      document.getElementById("editItemCat").innerHTML = optionsHtml;
+    }
+
+    function renderCategoryManageModal() {
+      const el = document.getElementById("categoryManageList");
+      el.innerHTML = state.categories.map(c => `
+        <span class="cat-manage-chip">
+          <span>${escapeHtml(c)}</span>
+          ${c !== "기타" ? `<button class="cat-manage-del" data-del-cat="${escapeHtml(c)}" title="삭제">✕</button>` : ""}
+        </span>
+      `).join("");
+    }
+
     function renderCatalogModal() {
+      populateCategorySelects();
       const q = (document.getElementById("catalogSearch").value || "").trim().toLowerCase();
-      const list = state.catalog.filter(item => item.name.toLowerCase().includes(q));
+      const catFilter = document.getElementById("catalogFilterCat").value || "전체";
+
+      const list = state.catalog.filter(item =>
+        (catFilter === "전체" || item.cat === catFilter) &&
+        item.name.toLowerCase().includes(q)
+      );
+
       const el = document.getElementById("catalogList");
       if (list.length === 0) {
-        el.innerHTML = `<div class="empty-state">검색 결과가 없습니다.</div>`;
+        el.innerHTML = `<div class="empty-state">해당하는 품목이 없습니다.</div>`;
         return;
       }
       el.innerHTML = list.map(item => `
         <div class="catalog-item">
-          <div style="display:flex; align-items:center; gap:8px; min-width:0; flex:1;">
+          <div style="display:flex; align-items:center; gap:6px; min-width:0; flex:1;">
             <button class="star-btn ${item.fav ? "fav" : ""}" data-toggle-fav="${item.id}" title="즐겨찾기">★</button>
             <div style="min-width:0;">
-              <div style="font-size:13.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-                ${item.emoji || "📦"} ${escapeHtml(item.name)}
+              <div style="display:flex; align-items:center; gap:5px;">
+                <span class="cat-badge">${escapeHtml(item.cat || "기타")}</span>
+                <span style="font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                  ${item.emoji || "📦"} ${escapeHtml(item.name)}
+                </span>
               </div>
-              <div style="font-size:12px; color:var(--amber-dark); font-weight:700;">${fmt(item.price)}</div>
+              <div style="font-size:12px; color:var(--amber-dark); font-weight:700; margin-top:2px;">${fmt(item.price)}</div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:6px;">
-            <button class="btn-dark-sm" data-cat-add="${item.id}">+ 담기</button>
+          <div style="display:flex; align-items:center; gap:4px; flex-shrink:0;">
+            <button class="btn-outline-sm" data-cat-edit="${item.id}" style="padding:5px 8px;">수정</button>
+            <button class="btn-dark-sm" data-cat-add="${item.id}" style="padding:6px 9px;">+ 담기</button>
             <button class="del-item-btn" data-cat-del="${item.id}" title="삭제">✕</button>
           </div>
         </div>
@@ -1813,7 +1811,6 @@
     function renderLimitModal() {
       const L = state.limits;
       const rows = [];
-
       if (state.owned.hana) {
         const hUnderLeft = Math.max(0, Math.min(5000 - L.hanaDailyUnderUsed, L.hanaRemain));
         const hOverLeft = Math.max(0, Math.min(20000 - L.hanaDailyOverUsed, L.hanaRemain));
@@ -1826,16 +1823,13 @@
           desc: `오늘 잔여 한도 ${fmt(hOverLeft)} → <strong>${fmt(Math.ceil(hOverLeft / 0.2))}</strong> 결제 시 풀할인`
         });
       }
-
       if (state.owned.shinhan) {
         const rate = state.paydayMode ? 0.5 : 0.2;
-        const maxSpend = Math.ceil(L.shinhanRemain / rate);
         rows.push({
           title: `🔵 신한카드 3만 이상 (${state.paydayMode ? "급여일 50%" : "평일 20%"})`,
-          desc: `월 잔여 한도 ${fmt(L.shinhanRemain)} → <strong>${fmt(maxSpend)}</strong>까지 할인 적용`
+          desc: `월 잔여 한도 ${fmt(L.shinhanRemain)} → <strong>${fmt(Math.ceil(L.shinhanRemain / rate))}</strong>까지 할인 적용`
         });
       }
-
       if (state.owned.ibk) {
         const maxUnder = L.ibkSalary ? 6 : 3;
         rows.push({
@@ -1847,9 +1841,7 @@
           desc: `월 잔여 한도 ${fmt(L.ibkRemain)} → 20% 구간 <strong>${fmt(Math.ceil(L.ibkRemain / 0.2))}</strong> / 30% 특별할인(연 ${L.ibkSpecialCount}회) <strong>${fmt(Math.ceil(L.ibkRemain / 0.3))}</strong>`
         });
       }
-
-      const body = document.getElementById("limitModalBody");
-      body.innerHTML = rows.length
+      document.getElementById("limitModalBody").innerHTML = rows.length
         ? rows.map(r => `
             <div class="compare-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
               <div style="font-size:13px; font-weight:800;">${r.title}</div>
@@ -1868,11 +1860,8 @@
     /* ================= ACTIONS & EVENTS ================= */
     function addToCart(name, price) {
       const existing = state.cart.find(i => i.name === name && i.price === price);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        state.cart.push({ name, price, qty: 1 });
-      }
+      if (existing) existing.qty += 1;
+      else state.cart.push({ name, price, qty: 1 });
       saveState();
       renderCartAndPlan();
       showToast(`${name} 담기 완료`);
@@ -1882,33 +1871,23 @@
       if (!currentPlan || state.cart.length === 0) return;
       const total = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
 
-      // Deduct limits
       currentPlan.steps.forEach(st => {
         if (st.card === "ibk") {
-          if (st.amount < 30000) {
-            state.limits.ibkUnderCount += 1;
-          } else {
+          if (st.amount < 30000) state.limits.ibkUnderCount += 1;
+          else {
             state.limits.ibkRemain = Math.max(0, state.limits.ibkRemain - st.saved);
-            if (st.useSpecial && state.limits.ibkSpecialCount > 0) {
-              state.limits.ibkSpecialCount -= 1;
-            }
+            if (st.useSpecial && state.limits.ibkSpecialCount > 0) state.limits.ibkSpecialCount -= 1;
           }
         } else if (st.card === "shinhan") {
           state.limits.shinhanRemain = Math.max(0, state.limits.shinhanRemain - st.saved);
-          if (st.amount < 30000) {
-            state.limits.shinhanDailyUnderUsed += st.saved;
-          }
+          if (st.amount < 30000) state.limits.shinhanDailyUnderUsed += st.saved;
         } else if (st.card === "hana") {
           state.limits.hanaRemain = Math.max(0, state.limits.hanaRemain - st.saved);
-          if (st.amount < 30000) {
-            state.limits.hanaDailyUnderUsed += st.saved;
-          } else {
-            state.limits.hanaDailyOverUsed += st.saved;
-          }
+          if (st.amount < 30000) state.limits.hanaDailyUnderUsed += st.saved;
+          else state.limits.hanaDailyOverUsed += st.saved;
         }
       });
 
-      // Save Receipt
       const now = new Date();
       const dateLabel = `${now.getMonth() + 1}/${now.getDate()} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
       const summary = state.cart.length === 1
@@ -1921,13 +1900,19 @@
         summary,
         planText,
         total,
-        saved: currentPlan.totalSaved
+        saved: currentPlan.totalSaved,
+        steps: currentPlan.steps
       });
 
       state.cart = [];
       saveState();
       renderAll();
       showToast(`결제 완료! ${fmt(currentPlan.totalSaved)} 환급 예정`);
+    }
+
+    function openCategoryModal() {
+      renderCategoryManageModal();
+      document.getElementById("categoryModal").classList.add("open");
     }
 
     // Global Event Delegation
@@ -1950,6 +1935,35 @@
       }
       if (e.target.classList.contains("modal-backdrop")) {
         e.target.classList.remove("open");
+        return;
+      }
+
+      // Inline "+ 항목 추가" button
+      if (e.target.id === "inlineAddCatBtn") {
+        openCategoryModal();
+        return;
+      }
+
+      // Quick Category Filter Tab
+      const quickCat = e.target.closest("[data-select-quick-cat]")?.dataset.selectQuickCat;
+      if (quickCat) {
+        state.selectedQuickCat = quickCat;
+        saveState();
+        renderQuickArea();
+        return;
+      }
+
+      // Delete Category
+      const delCat = e.target.closest("[data-del-cat]")?.dataset.delCat;
+      if (delCat) {
+        if (!confirm(`'${delCat}' 항목을 삭제할까요? 해당 품목들은 '기타' 항목으로 이동됩니다.`)) return;
+        state.categories = state.categories.filter(c => c !== delCat);
+        state.catalog.forEach(item => { if (item.cat === delCat) item.cat = "기타"; });
+        if (state.selectedQuickCat === delCat) state.selectedQuickCat = "전체";
+        saveState();
+        renderCategoryManageModal();
+        renderQuickArea();
+        showToast(`'${delCat}' 항목을 삭제했습니다.`);
         return;
       }
 
@@ -1986,14 +2000,14 @@
         return;
       }
 
-      // Catalog Modal Controls
+      // Catalog Controls
       const favId = e.target.closest("[data-toggle-fav]")?.dataset.toggleFav;
       if (favId) {
         const item = state.catalog.find(i => i.id === favId);
         if (item) {
           item.fav = !item.fav;
           saveState();
-          renderQuickChips();
+          renderQuickArea();
           renderCatalogModal();
         }
         return;
@@ -2004,11 +2018,24 @@
         if (item) addToCart(item.name, item.price);
         return;
       }
+      const catEditId = e.target.closest("[data-cat-edit]")?.dataset.catEdit;
+      if (catEditId) {
+        const item = state.catalog.find(i => i.id === catEditId);
+        if (item) {
+          populateCategorySelects();
+          document.getElementById("editItemId").value = item.id;
+          document.getElementById("editItemCat").value = state.categories.includes(item.cat) ? item.cat : "기타";
+          document.getElementById("editItemName").value = item.name;
+          document.getElementById("editItemPrice").value = item.price;
+          document.getElementById("editItemModal").classList.add("open");
+        }
+        return;
+      }
       const catDelId = e.target.closest("[data-cat-del]")?.dataset.catDel;
       if (catDelId) {
         state.catalog = state.catalog.filter(i => i.id !== catDelId);
         saveState();
-        renderQuickChips();
+        renderQuickArea();
         renderCatalogModal();
         return;
       }
@@ -2055,6 +2082,22 @@
     });
 
     document.getElementById("completePayBtn").addEventListener("click", completePayment);
+    document.getElementById("openCategoryModalBtn").addEventListener("click", openCategoryModal);
+
+    document.getElementById("addCategoryBtn").addEventListener("click", () => {
+      const input = document.getElementById("newCategoryInput");
+      const name = input.value.trim();
+      if (!name) return showToast("항목 이름을 입력해주세요.");
+      if (name === "전체" || state.categories.includes(name)) return showToast("이미 존재하는 항목입니다.");
+      const etcIdx = state.categories.indexOf("기타");
+      if (etcIdx >= 0) state.categories.splice(etcIdx, 0, name);
+      else state.categories.push(name);
+      input.value = "";
+      saveState();
+      renderCategoryManageModal();
+      renderQuickArea();
+      showToast(`'${name}' 항목이 추가되었습니다.`);
+    });
 
     document.getElementById("openCatalogBtn").addEventListener("click", () => {
       renderCatalogModal();
@@ -2062,23 +2105,41 @@
     });
 
     document.getElementById("catalogSearch").addEventListener("input", renderCatalogModal);
+    document.getElementById("catalogFilterCat").addEventListener("change", renderCatalogModal);
 
     document.getElementById("addCatalogItemBtn").addEventListener("click", () => {
+      const cat = document.getElementById("newCatCategory").value || "기타";
       const nEl = document.getElementById("newCatName");
       const pEl = document.getElementById("newCatPrice");
       const name = nEl.value.trim();
       const price = parseInt(pEl.value, 10);
-      if (!name || !price || price <= 0) {
-        showToast("품목명과 가격을 입력해주세요.");
-        return;
-      }
-      state.catalog.unshift({ id: "c_" + Date.now(), emoji: "📦", name, price, fav: true });
+      if (!name || !price || price <= 0) return showToast("품목명과 가격을 입력해주세요.");
+      state.catalog.unshift({ id: "c_" + Date.now(), cat, emoji: "📦", name, price, fav: true });
       nEl.value = "";
       pEl.value = "";
       saveState();
-      renderQuickChips();
+      renderQuickArea();
       renderCatalogModal();
-      showToast("카탈로그 및 즐겨찾기에 추가되었습니다.");
+      showToast(`[${cat}] ${name} 등록 완료`);
+    });
+
+    document.getElementById("saveEditItemBtn").addEventListener("click", () => {
+      const id = document.getElementById("editItemId").value;
+      const cat = document.getElementById("editItemCat").value;
+      const name = document.getElementById("editItemName").value.trim();
+      const price = parseInt(document.getElementById("editItemPrice").value, 10);
+      if (!name || !price || price <= 0) return showToast("올바른 이름과 가격을 입력해주세요.");
+      const item = state.catalog.find(i => i.id === id);
+      if (item) {
+        item.cat = cat;
+        item.name = name;
+        item.price = price;
+        saveState();
+        renderQuickArea();
+        renderCatalogModal();
+        document.getElementById("editItemModal").classList.remove("open");
+        showToast("품목 정보가 수정되었습니다.");
+      }
     });
 
     document.getElementById("openLimitCalcBtn").addEventListener("click", () => {
@@ -2103,14 +2164,8 @@
       renderCartAndPlan();
     });
 
-    const limitInputs = [
-      ["ibkUnderCount", "ibkUnderCount"],
-      ["ibkRemain", "ibkRemain"],
-      ["ibkSpecialCount", "ibkSpecialCount"],
-      ["shinhanRemain", "shinhanRemain"],
-      ["hanaRemain", "hanaRemain"]
-    ];
-    limitInputs.forEach(([id, key]) => {
+    [["ibkUnderCount", "ibkUnderCount"], ["ibkRemain", "ibkRemain"], ["ibkSpecialCount", "ibkSpecialCount"],
+     ["shinhanRemain", "shinhanRemain"], ["hanaRemain", "hanaRemain"]].forEach(([id, key]) => {
       document.getElementById(id).addEventListener("input", e => {
         state.limits[key] = Math.max(0, parseInt(e.target.value, 10) || 0);
         saveState();
@@ -2175,3 +2230,4 @@
   </script>
 </body>
 </html>
+ 
